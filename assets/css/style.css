@@ -187,6 +187,25 @@ h1,h2,h3{ font-family:var(--font-display); margin:0; line-height:1.05; letter-sp
 .nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:34px; height:30px; background:none; border:0; cursor:pointer; margin-left:auto; }
 .nav-toggle span{ display:block; height:2px; background:var(--cream); border-radius:2px; }
 
+/* -------------------- menu: "laser" que contorna o item no hover --------------------
+   Um anel de luz gira em volta da pílula (conic-gradient mascarado só na borda).
+   --laser é registrada com @property pra poder ser animada; onde não houver
+   suporte, o anel fica parado no ângulo inicial, sem quebrar o menu. */
+@property --laser{ syntax:"<angle>"; inherits:false; initial-value:0deg; }
+@keyframes laser-spin{ to{ --laser:360deg; } }
+.main-nav a{ position:relative; isolation:isolate; }
+.main-nav a::before{
+  content:""; position:absolute; inset:-2px; border-radius:inherit; padding:2px; z-index:-1;
+  background:conic-gradient(from var(--laser), transparent 0deg, transparent 150deg, rgba(74,168,216,.6) 240deg, #4AA8D8 300deg, #ffffff 340deg, transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  filter:drop-shadow(0 0 4px rgba(74,168,216,.85));
+  opacity:0; pointer-events:none;
+  transition:opacity .2s ease;
+  animation:laser-spin 1.8s linear infinite paused;
+}
+.main-nav a:hover::before, .main-nav a:focus-visible::before{ opacity:1; animation-play-state:running; }
+
 /* -------------------- fx badge (cotação AUD ao vivo, no header) -------------------- */
 .fx-badge{
   display:inline-flex; align-items:center; gap:6px;

@@ -1,0 +1,5 @@
+# Bloqueado de indexação enquanto o site passa pelo pente fino final.
+# Na hora de publicar de verdade: trocar "Disallow: /" por "Allow: /", incluir a
+# linha Sitemap e remover <meta name="robots" content="noindex, nofollow"> das páginas.
+User-agent: *
+Disallow: /

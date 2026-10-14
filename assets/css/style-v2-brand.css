@@ -1,0 +1,79 @@
+/* =============================================================
+   TESTE — paleta oficial do brandbook (Arquivos/NOSOFARAWAY
+   Identidade Visual.pdf) aplicada em cima da estrutura editorial
+   da v2. Não mexe em layout/hierarquia, só troca os tokens de cor
+   de style-v2.css (que já é todo baseado em custom properties).
+
+   Cores do brandbook:
+   - Pantone 173938 "Confidence"  #615ADE (roxo/azul escuro)
+   - Pantone 144809 "Care"        #93D7EF (azul-claro)
+   - Branco                       #FFFFFF
+   - Gradiente do logo            #615ADE → #322C86
+
+   Só pra comparação (2026-09-29) — ver com o João se essa é a
+   direção ou se fica marfim/terracota (style-v2.css original).
+   ============================================================= */
+
+.v2-brand{
+  --ivory:      #F1F0FA;   /* antes marfim quente; agora cinza levemente lilás, neutro e no clima do branco/roxo oficiais */
+  --ivory-dim:  #E4E1F5;
+  --ink-v2:     #241F5C;   /* deriva do gradiente oficial (#322C86), mais legível em texto de corpo */
+  --ink-v2-soft:#4A4570;
+  --rule:       rgba(36,31,92,.16);
+  --accent:     #615ADE;   /* Pantone 173938 — "Confidence" */
+  --accent-dim: #4A44B5;
+  --accent-onink:#93D7EF;  /* Pantone 144809 — "Care", já pensada pra contraste sobre fundo escuro */
+  --cream-v2:   #FFFFFF;
+}
+
+/* -------------------- hero: vídeo/foto continua com overlay --ink normal (fora do escopo da troca de paleta) -------------------- */
+
+/* =============================================================
+   .v2-site — SÓ na index.html (não nas LPs, que usam .v2 puro e
+   dependem do fundo ivory alternado com as cores de "flavor" dos
+   blocos). A regra `.v2 .section--ink/paper/rust/eucalyptus{
+   background:var(--ivory)}` em style-v2.css força TODA seção da
+   home pro branco/ivory, mesmo essas seções já usando as mesmas
+   classes escuras (--ink/--rust/--eucalyptus) que deixam
+   marcelo-lusardo.html e expert-education.html roxas — essas
+   páginas nunca carregam style-v2.css, então nunca tiveram esse
+   bug. Aqui devolvemos pra home o mesmo padrão escuro/claro
+   alternado do resto do site (achado pelo João, 2026-09-30). */
+.v2-site .section--ink{ background:var(--ink); color:var(--cream); }
+.v2-site .section--paper{ background:var(--paper); color:var(--ink-text); }
+.v2-site .section--rust{ background:var(--rust); color:#fff; }
+.v2-site .section--eucalyptus{ background:var(--eucalyptus); color:#fff; }
+
+.v2-site .section-title--light{ color:var(--cream); }
+.v2-site .section-lead--light{ color:#D6DCEE; }
+.v2-site .section--rust .section-lead--light{ color:#fff; }
+
+.v2-site .eyebrow{ color:var(--gold); }
+.v2-site .eyebrow--onrust{ color:#fff; }
+.v2-site .link-inline--light{ color:var(--cream); }
+
+/* header: mesmo tratamento escuro/translúcido das outras páginas do site
+   (sem isso, só a home tinha cabeçalho claro por causa do .v2 .site-header) */
+.v2-site .site-header{ background:rgba(18,23,58,.92); backdrop-filter:blur(6px); border-bottom:1px solid rgba(74,168,216,.25); box-shadow:none; }
+.v2-site .main-nav a{ color:#D6DCEE; font-family:inherit; font-size:inherit; letter-spacing:normal; text-transform:none; }
+.v2-site .main-nav a:hover{ color:#fff; }
+.v2-site .main-nav a[aria-current="page"]{ color:var(--ink); background:var(--gold); }
+.v2-site .fx-badge{ background:rgba(74,168,216,.12); border-color:rgba(74,168,216,.35); color:inherit; }
+.v2-site .fx-badge__label{ color:#7A81A8; }
+.v2-site .fx-badge strong{ color:var(--gold); }
+
+/* números + manifesto: o "ivory" ficava claro demais logo depois do
+   hero — mesmo sendo um tom parecido com --paper, ao lado das seções
+   roxas vivas ele lia como "branco" (João, 2026-09-30, segunda rodada
+   de feedback: "essa home continua destoando"). Em vez de tentar
+   manter uma seção clara aqui, unifica com o roxo escuro do resto do
+   site — sem trecho claro nenhum entre o hero e o #ecossistema. */
+.v2-site #numeros,
+.v2-site #numeros + section{ background:var(--ink); }
+.v2-site #numeros .eyebrow--dark{ color:var(--gold); }
+.v2-site .v2-authority-item{ border-left-color:rgba(255,255,255,.25); }
+.v2-site .v2-authority-item strong{ color:var(--cream); }
+.v2-site .v2-authority-item span{ color:#D6DCEE; }
+.v2-site .v2-authority-item a{ color:var(--accent-onink); }
+.v2-site .v2-manifesto p{ color:var(--cream); }
+.v2-site .v2-manifesto .v2-manifesto__accent{ color:var(--accent-onink); }

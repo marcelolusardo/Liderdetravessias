@@ -1,0 +1,423 @@
+/* =============================================================
+   AUSTRÁLIA SEM FRONTEIRAS — Design system v2 ("/new")
+   Direção pedida pelo Marcelo (documento de 2026-09-27): editorial,
+   internacional, evidência > adjetivo. Referências: Monocle (identidade
+   internacional/lifestyle), Harvard Business Review (autoridade
+   editorial, tipografia, espaço em branco), National Geographic
+   (fotografia documental real), MasterClass (o especialista como
+   centro, pouca palavra, imagem forte).
+
+   Continua carregando style.css primeiro (reaproveita fontes, reset,
+   e o .btn-ticket verde — cor de conversão intocável) e SOBRESCREVE
+   só o que muda pra essa nova linguagem visual. Não existe mais tema
+   "documento de viagem" aqui: sem carimbo de passaporte, sem ticket-
+   divider, sem cartão de embarque, sem crachá redondo.
+
+   Princípios (direto do documento):
+   - Uma ideia principal por tela.
+   - Mostrar evidência, não usar adjetivo.
+   - Poucas cores, muito espaço negativo, sem gradiente forte.
+   - Fotografia documental real, nunca montagem (sem canguru+coala+
+     Opera House juntos).
+   ============================================================= */
+
+:root{
+  --ivory:      #F6F3EC;
+  --ivory-dim:  #EFEAE0;
+  --ink-v2:     #14161F;
+  --ink-v2-soft:#3A3D4A;
+  --rule:       rgba(20,22,31,.14);
+  --accent:     #A85A34; /* terracota — "red centre" australiano, única cor de destaque editorial */
+  --accent-dim: #8C4A2A;
+  --accent-onink:#D9895E; /* mesma família, mais clara — só pra texto de destaque sobre fundo --ink-v2 (closing, hero) */
+  --cream-v2:   #FFFFFF;
+}
+
+.v2{ background:var(--ivory); color:var(--ink-v2); }
+.v2 body{ background:var(--ivory); }
+
+/* -------------------- estrutura base -------------------- */
+.v2 .wrap{ max-width:1120px; }
+.v2 section{ padding-block:96px; }
+.v2 section + section{ border-top:1px solid var(--rule); }
+.v2 .section--ink, .v2 .section--paper, .v2 .section--rust, .v2 .section--eucalyptus{
+  background:var(--ivory); color:var(--ink-v2);
+}
+
+/* -------------------- header -------------------- */
+.v2 .site-header{ background:var(--ivory); border-bottom:1px solid var(--rule); backdrop-filter:none; box-shadow:none; }
+.v2 .main-nav a{ color:var(--ink-v2); font-family:var(--font-mono); font-size:.76rem; letter-spacing:.06em; text-transform:uppercase; }
+/* era var(--accent) — #615ADE em cima do header --ivory dá só 2.8:1;
+   --accent-dim é mais escuro e ainda lê como "destaque" */
+.v2 .main-nav a[aria-current="page"]{ color:var(--accent-dim); }
+@media (max-width:1340px){
+  /* no mobile o .main-nav vira um painel fixo com fundo --ink (escuro,
+     ver style.css); o link claro de cima ficava escuro sobre escuro —
+     achado pelo João em 2026-09-30, quando reportou a home sem a
+     mesma identidade da página "Quem é Marcelo" (essa página nem
+     carrega o v2, então não tinha esse bug) */
+  .v2 .main-nav a{ color:var(--ivory); }
+  .v2 .main-nav a[aria-current="page"]{ color:var(--accent-onink); }
+}
+.v2 .fx-badge{ border-color:var(--rule); background:transparent; color:var(--ink-v2); }
+.v2 .fx-badge__label{ color:var(--ink-v2-soft); }
+
+/* -------------------- eyebrow / labels editoriais -------------------- */
+.v2 .eyebrow, .v2 .eyebrow--dark, .v2 .eyebrow--onrust{
+  font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--accent); margin:0 0 22px; display:flex; align-items:center; gap:12px;
+}
+.v2 .eyebrow::before{ content:""; width:28px; height:1px; background:var(--accent); display:inline-block; }
+
+/* -------------------- tipografia -------------------- */
+.v2 h1, .v2 h2, .v2 h3, .v2 .section-title, .v2 .hero-title{
+  color:var(--ink-v2); font-weight:700; letter-spacing:-.02em;
+}
+.v2 .section-title, .v2 .section-title--light{ color:var(--ink-v2); font-size:clamp(1.9rem, 3.2vw, 2.6rem); font-weight:700; }
+.v2 .section-lead, .v2 .section-lead--light{ color:var(--ink-v2-soft); font-size:1.1rem; line-height:1.65; max-width:640px; }
+.v2 .hero-title{ font-size:clamp(2.4rem, 5vw, 4.2rem); line-height:1.05; }
+.v2 .hero-sub{ color:var(--ink-v2-soft); }
+
+/* -------------------- thin rule (substitui ticket-divider) -------------------- */
+.v2 .ticket-divider, .v2 .ticket-divider--paper{ display:none; }
+.v2-rule{ border:0; border-top:1px solid var(--rule); margin:0; }
+
+/* -------------------- botões: CTA verde intocável, resto sóbrio -------------------- */
+.v2 .btn-ticket{ border-radius:999px; border:none; box-shadow:none; animation:none; }
+.v2 .btn-ticket::before, .v2 .btn-ticket::after{ display:none; }
+.v2 .link-inline, .v2 .link-inline--light{ color:var(--accent); text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:1px; }
+
+/* -------------------- authority bar: número plano, sem card/caixa -------------------- */
+.v2-authority-bar{ display:grid; grid-template-columns:repeat(4,1fr); gap:40px; }
+.v2-authority-item{ border-left:1px solid var(--rule); padding-left:20px; }
+.v2-authority-item strong{ display:block; font-size:2.4rem; font-weight:700; letter-spacing:-.02em; color:var(--ink-v2); line-height:1; margin-bottom:10px; }
+.v2-authority-item span{ font-family:var(--font-mono); font-size:.78rem; color:var(--ink-v2-soft); letter-spacing:.02em; }
+.v2-authority-item a{ color:var(--accent); }
+
+/* -------------------- manifesto: texto grande, centralizado, respiro -------------------- */
+.v2-manifesto{ max-width:760px; margin-inline:auto; text-align:center; }
+.v2-manifesto p{ font-size:clamp(1.4rem,2.6vw,1.9rem); line-height:1.5; color:var(--ink-v2); font-weight:500; margin:0 0 .3em; }
+.v2-manifesto .v2-manifesto__accent{ color:var(--accent); }
+
+/* -------------------- hero: foto documental real, texto por cima, sem badge circular -------------------- */
+.v2 section.v2-hero{ position:relative; overflow:hidden; padding-block:0; border-top:none; }
+.v2-hero__media{ position:relative; min-height:640px; display:flex; align-items:flex-end; background:var(--ink-v2); }
+.v2-hero__media img, .v2-hero__media video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.v2-hero__media::after{ content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(20,22,31,.92) 0%, rgba(20,22,31,.55) 55%, rgba(20,22,31,.3) 100%); }
+.v2-hero__content{ position:relative; z-index:1; padding:64px 0 56px; color:#fff; }
+.v2-hero__content .eyebrow{ color:var(--ivory); }
+.v2-hero__content .eyebrow::before{ background:var(--ivory); }
+.v2-hero__content .hero-title{ color:#fff; }
+.v2-hero__content .hero-sub{ color:rgba(255,255,255,.82); }
+.v2-hero__placeholder-note{ font-family:var(--font-mono); font-size:.7rem; color:rgba(255,255,255,.55); margin-top:18px; }
+
+/* -------------------- LP: método Líder de Travessias -------------------- */
+.v2-method{ display:grid; grid-template-columns:repeat(5,1fr); gap:24px; }
+.v2-method__step{ padding-top:24px; border-top:2px solid var(--ink-v2); }
+.v2-method__step strong{ display:block; font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+.v2-method__step h3{ font-size:1.1rem; margin:0 0 8px; }
+.v2-method__step p{ font-size:.88rem; color:var(--ink-v2-soft); margin:0; line-height:1.55; }
+
+/* -------------------- LP: pra quem é (3 momentos) -------------------- */
+.v2-audience{ display:grid; grid-template-columns:repeat(3,1fr); gap:48px; }
+.v2-audience__item{ border-left:1px solid var(--rule); padding-left:22px; }
+.v2-audience__item strong{ display:block; font-size:1.15rem; margin-bottom:10px; }
+.v2-audience__item p{ color:var(--ink-v2-soft); font-size:.95rem; line-height:1.65; margin:0; }
+
+/* -------------------- LP: bio Marcelo -------------------- */
+.v2-bio{ display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:center; }
+.v2-bio img{ width:100%; display:block; border-radius:2px; }
+.v2-bio__kicker{ font-size:.85rem; letter-spacing:.01em; color:var(--ink-v2-soft); margin:0 0 4px; }
+.v2-bio__name{ font-size:1.6rem; margin:0 0 18px; }
+
+/* -------------------- LP: oferta -------------------- */
+.v2-offer{ border:1px solid var(--rule); padding:48px 40px; max-width:520px; margin-inline:auto; text-align:center; background:var(--cream-v2); }
+.v2-offer__price{ font-size:3rem; font-weight:700; letter-spacing:-.02em; margin:6px 0 6px; }
+.v2-offer__cycle{ font-family:var(--font-mono); font-size:.78rem; color:var(--ink-v2-soft); margin:0 0 28px; }
+.v2-offer ul{ list-style:none; padding:0; margin:0 0 32px; text-align:left; }
+.v2-offer li{ padding:10px 0; border-bottom:1px solid var(--rule); font-size:.94rem; }
+.v2-offer li:last-child{ border-bottom:none; }
+
+/* -------------------- LP: FAQ sem acordeão em card -------------------- */
+.v2-faq details{ border-bottom:1px solid var(--rule); padding:22px 0; }
+.v2-faq details:first-child{ border-top:1px solid var(--rule); }
+.v2-faq summary{ cursor:pointer; font-weight:600; font-size:1.02rem; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+.v2-faq summary::-webkit-details-marker{ display:none; }
+.v2-faq p{ margin:14px 0 0; color:var(--ink-v2-soft); line-height:1.6; }
+
+/* =============================================================
+   Overrides pros componentes específicos da LP antiga (lp-ecossistema.css)
+   — não reescrevemos o HTML de cada dobra, só a pele. Objetivo: sair do
+   "card colorido lado a lado" pro editorial (fundo marfim, linha fina,
+   sem gradiente, sem ícone genérico colorido).
+   ============================================================= */
+.v2 .lp-header{ background:var(--ivory); border-bottom:1px solid var(--rule); backdrop-filter:none; }
+.v2 .lp-h2{ color:var(--ink-v2); font-weight:700; }
+.v2 .lp-h2--light{ color:var(--ink-v2); }
+.v2 .lp-lead{ color:var(--ink-v2-soft); }
+.v2 .lp-lead--light{ color:var(--ink-v2-soft); }
+.v2 .lp-callout{ color:var(--ink-v2); }
+.v2 .section--ink, .v2 .section--paper, .v2 .section--rust, .v2 .lp-marcelo-hero, .v2 .lp-closing{
+  background:var(--ivory); color:var(--ink-v2);
+}
+.v2 .lp-marcelo-hero{ background-image:none !important; padding-block:80px; }
+.v2 .lp-marcelo-hero-inner{ max-width:640px; }
+
+/* números da economia: de card branco com borda pra número cru + linha fina
+   (mesmo princípio da barra de autoridade da home) */
+.v2 .lp-stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+.v2 .lp-stat-card{ background:none; border:none; border-left:1px solid var(--rule); border-radius:0; padding:0 28px; text-align:left; }
+.v2 .lp-stat-card:first-child{ border-left:none; }
+.v2 .lp-fx-card{ border:1px solid var(--rule); background:transparent; }
+
+/* listas quebradas / dor: de "pill colorida" pra lista com linha fina */
+.v2 .lp-broken-journey, .v2 .lp-pain-grid{ list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:0; padding:0; margin:0; }
+.v2 .lp-broken-journey li, .v2 .lp-pain-grid > *{
+  display:flex; align-items:center; gap:14px; padding:16px 0; border-bottom:1px solid var(--rule);
+  background:none; color:var(--ink-v2); font-size:1rem;
+}
+.v2 .lp-bj-icon, .v2 .lp-flag-chip, .v2 .lp-x{ color:var(--accent); background:none; }
+.v2 .lp-x{ font-weight:700; }
+
+/* comparação Brasil x Austrália: mantém a barra, tira o gradiente do preenchimento */
+.v2 .lp-bar-fill--br, .v2 .lp-bar-fill--au{ background:var(--accent); }
+.v2 .lp-bar-track{ background:var(--ivory-dim); }
+
+/* fluxo / pilares (dobra a ser substituída pelo Método — override defensivo) */
+.v2 .lp-flow span{ background:none; border:1px solid var(--rule); color:var(--ink-v2); }
+.v2 .lp-pillars-row > *{ color:var(--ink-v2-soft); }
+
+/* antes/depois */
+.v2 .lp-journey-col--chaos, .v2 .lp-journey-col--clear{ background:none; border:1px solid var(--rule); }
+.v2 .lp-journey-final{ color:var(--accent) !important; }
+
+/* stack Expert/ASF */
+.v2 .lp-stack-tier{ background:var(--cream-v2); border:1px solid var(--rule); }
+.v2 .lp-stack-tier--expert{ background:var(--ink-v2); }
+
+/* cards de oferta ("o que você recebe") */
+.v2 .lp-offer-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+.v2 .lp-offer-card{
+  background:none; border:none; border-top:2px solid var(--ink-v2); border-radius:0; padding:22px 18px 0; box-shadow:none;
+}
+.v2 .lp-offer-icon{ color:var(--accent); }
+
+/* 3 momentos */
+.v2 .lp-moment-card{ background:var(--cream-v2); border:1px solid var(--rule); box-shadow:none; }
+.v2 .lp-moment-flag{ background:none; color:var(--accent); border:1px solid var(--accent); }
+
+/* prova social / vídeo */
+/* .stamp-card (home/index.html) continua escuro de propósito, mas a
+   regra genérica ".v2 h1,h2,h3{color:ink-v2}" (mais específica que
+   ".stamp-card h3{color:cream}" de style.css) escurecia o nome —
+   mesmo bug de "escuro sobre escuro" encontrado antes na LP, achado
+   aqui pela auditoria de 2026-09-30 */
+.v2 .stamp-card h3{ color:var(--cream); }
+.v2 .video-card__title{ color:var(--cream); }
+
+/* era pensado como um véu translúcido por cima de --section-eucalyptus
+   sólido; a v2 achata essa section pra --ivory, e o véu de 25% de preto
+   em cima de bege quase não escurece nada — texto branco ficava quase
+   ilegível (achado na auditoria de 2026-09-30, não é regressão de hoje) */
+.v2 .beyond-note{ background:var(--ink-v2); border-color:rgba(255,255,255,.2); }
+
+/* só dentro do .lp-proof-card (a v2 achata ele pra branco) — .stamp-tag
+   também é reusado dentro de .stamp-card (home/index.html), que continua
+   escuro de propósito e não deve virar --ink-v2-soft (bug achado na
+   auditoria de contraste de 2026-09-30, não causado pela troca de
+   paleta, só exposto por ela: ficava quase invisível em qualquer
+   variação de roxo escuro, antes ou depois) */
+.v2 .lp-proof-card .stamp-tag,
+.v2 .lp-success-card .stamp-tag{ background:none; border:1px solid var(--rule); color:var(--ink-v2-soft); }
+.v2 .lp-proof-card{ background:var(--cream-v2); border:1px solid var(--rule); box-shadow:none; }
+
+/* histórias reais em destaque (Rodrigo, Gabriel Sedlak) — card com foto
+   real do YouTube, clicável, abre o vídeo numa aba nova */
+.v2 .lp-success-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:820px; margin:0 auto 24px; }
+.v2 .lp-success-card{
+  display:flex; flex-direction:column; background:var(--cream-v2); border:1px solid var(--rule);
+  border-radius:4px; overflow:hidden; text-decoration:none; color:inherit; transition:border-color .18s ease;
+}
+.v2 .lp-success-card:hover{ border-color:var(--accent); }
+.v2 .lp-success-card__photo{ position:relative; display:block; aspect-ratio:16/9; overflow:hidden; background:var(--ink-v2); }
+.v2 .lp-success-card__photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+.v2 .lp-success-card__play{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; color:#fff; background:rgba(20,22,31,.28);
+}
+.v2 .lp-success-card__body{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:18px 20px 22px; }
+.v2 .lp-success-card__body strong{ font-size:1.05rem; color:var(--ink-v2); }
+.v2 .lp-success-card__desc{ font-size:.86rem; color:var(--ink-v2-soft); line-height:1.5; }
+@media (max-width:640px){
+  .v2 .lp-success-grid{ grid-template-columns:1fr; }
+}
+
+/* depoimentos menores (pedido do João, 2026-10-01) — mesma lógica de
+   override claro do .lp-success-card acima */
+.v2 .lp-mini-card{ background:var(--cream-v2); border:1px solid var(--rule); }
+.v2 .lp-mini-card:hover{ border-color:var(--accent); }
+.v2 .lp-mini-card__media{ background:var(--ink-v2); }
+.v2 .lp-mini-card__name{ color:var(--ink-v2); }
+
+/* grid de posts do Instagram embedados (Joel Jota, Jacob Petry etc.) —
+   o embed.js do Instagram vem com max-width:658px!important inline no
+   blockquote; sobrescrevo pra caber em 3 colunas */
+.v2 .lp-instagram-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1000px; margin:0 auto; align-items:start; }
+.v2 .lp-instagram-grid > blockquote.instagram-media{ margin:0 !important; max-width:100% !important; min-width:0 !important; width:100% !important; }
+
+/* cards de vídeo (Paulo Vieira, Joel Jota, Jacob Petry) — versão clara */
+.v2 .lp-video-card{ background:var(--cream-v2); border:1px solid var(--rule); }
+.v2 .lp-video-card__body strong{ color:var(--ink-v2); }
+.v2 .lp-video-card__body p{ color:var(--ink-v2-soft); }
+@media (max-width:900px){
+  .v2 .lp-instagram-grid{ grid-template-columns:1fr; max-width:460px; }
+  .v2 .lp-video-grid{ grid-template-columns:1fr; max-width:400px; }
+}
+
+/* livro */
+.v2 .lp-book-offer__panel{ background:var(--ink-v2); }
+.v2 .lp-book-offer__brand-icon{ display:none; } /* sem ícone de canguru — texto só */
+
+/* preço/oferta final */
+.v2 .lp-pricing-card{ background:var(--cream-v2); color:var(--ink-v2); border:1px solid var(--rule); box-shadow:none; }
+.v2 .lp-pricing-value, .v2 .lp-pricing-name, .v2 .lp-pricing-installment, .v2 .lp-pricing-note{ color:var(--ink-v2); }
+.v2 .lp-pricing-checklist li{ border-bottom:1px solid var(--rule); color:var(--ink-v2-soft); }
+
+/* "plaquinha" de reframe de valor ao lado do preço (pedido do João,
+   2026-09-30): "R$1.030 = 1,5 dia de trabalho na Austrália" */
+.v2 .lp-pricing-value-row{ display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:4px; }
+.v2 .lp-pricing-value-badge{
+  display:inline-block; max-width:190px; background:var(--accent); color:#fff;
+  font-family:var(--font-mono); font-size:.68rem; font-weight:700; line-height:1.35;
+  letter-spacing:.01em; padding:8px 12px; border-radius:14px; text-align:left;
+}
+.v2 .lp-pricing-note--tiny{ color:var(--ink-v2-soft) !important; font-size:.66rem; margin-top:6px; }
+
+/* FAQ: .faq-item é reusado no FAQ escuro do index.html (#duvidas, sem
+   .lp-faq) — sem esse escopo, o texto (--ink-v2) ficava da MESMA cor do
+   fundo --ink naquela seção e sumia por completo (achado 2026-10-01,
+   mesma classe de bug do .stamp-tag acima). Só a versão clara da LP
+   (.lp-faq) deve virar --ink-v2. */
+.v2 .lp-faq .faq-item{ background:none; border:none; border-bottom:1px solid var(--rule); border-radius:0; }
+.v2 .lp-faq .faq-item summary{ color:var(--ink-v2); }
+.v2 .lp-faq .faq-item p{ color:var(--ink-v2-soft); }
+
+/* mesma classe de bug: #provas (Histórias Reais, index.html) é escuro
+   e reusa .lp-success-card, mas index.html também carrega .v2 (por
+   causa do header/brand) — sem esse reforço, o card pegava o reset
+   claro pensado pra LP (2026-10-01, pedido do João de depoimentos novos
+   expôs o problema). Devolve o tema escuro original (ver style.css). */
+#provas .lp-success-grid{ margin-top:40px; }
+#provas .lp-success-card{ background:var(--ink-soft); border:1px solid rgba(74,168,216,.25); }
+#provas .lp-success-card:hover{ border-color:var(--gold); }
+#provas .lp-success-card__photo{ background:var(--ink); }
+#provas .lp-success-card__body strong{ color:var(--cream); }
+#provas .lp-success-card__desc{ color:#A8AFCC; }
+#provas .lp-success-card .stamp-tag{ background:none; border:1px solid var(--gold); color:var(--gold); }
+#provas .lp-mini-card{ background:var(--ink-soft); border:1px solid rgba(74,168,216,.2); }
+#provas .lp-mini-card__name{ color:var(--cream); }
+
+.v2 .lp-closing{ background:var(--ink-v2) !important; color:#fff; padding-block:100px; }
+.v2 .lp-closing .lp-h2, .v2 .lp-closing .lp-lead{ color:#fff; }
+.v2 .lp-closing .lp-callout{ color:var(--accent-onink); }
+
+.v2 .lp-sticky-cta{ background:var(--ivory); border-top:1px solid var(--rule); }
+
+/* =============================================================
+   FIX DE CONTRASTE (reportado pelo João em 2026-09-29: "muitas
+   letras na mesma cor do fundo"). Vários componentes de
+   lp-ecossistema.css/style.css foram desenhados com texto claro
+   pra ficar sobre fundo --ink (escuro) ou sobre o card branco
+   original. A v2 achatou a maioria das sections pra --ivory e
+   trocou vários cards de escuro pra branco/transparente (ver
+   .lp-stat-card, .lp-fx-card, .lp-proof-card, .lp-stack-tier,
+   .lp-journey-col--chaos/--clear acima) — o texto ficou órfão da
+   cor de fundo que ele precisava pra ser legível.
+   ============================================================= */
+
+/* pergunta/resposta ("do plano à execução") — sem override nenhum
+   antes, herdava --cream/--gold pensado pro .section--ink escuro */
+.v2 .lp-hop__q{ color:var(--ink-v2); }
+.v2 .lp-hop__a{ color:var(--accent); }
+
+/* números grandes (economia, cotação) — o card branco/escuro que
+   dava contraste ao dourado virou "background:none/transparent" */
+.v2 .lp-stat-card strong,
+.v2 .lp-stat-card strong .lp-count,
+.v2 .mv-mini-stat strong,
+.v2 .mv-mini-stat strong .lp-count{ color:var(--ink-v2); }
+.v2 .lp-fx-card__label{ color:var(--ink-v2-soft); }
+
+/* conversão AUD -> R$ ao vivo nos cards de "números da Austrália"
+   (pedido do João, 2026-09-30) — fica em itálico e mais apagado que o
+   rótulo, pra ficar claro que é uma referência aproximada, não o dado
+   oficial (esse já tem fonte citada no rodapé) */
+/* dourado escurecido (#B8963E), mesmo ajuste do .lp-stat-card strong
+   acima — fica sobre fundo claro (blk-light), o #E8BE6E vivo estouraria
+   o contraste. Pedido do João (2026-09-30): "maior e dourado". */
+.v2 .lp-fx-convert{ display:block; margin-top:6px; font-size:1rem; font-weight:700; font-style:normal; color:#B8963E; }
+.v2 .lp-fx-convert--bar{ display:block; margin-top:6px; font-size:.95rem; font-weight:700; font-style:normal; color:#B8963E; text-align:right; }
+.v2 .lp-fx-card__value{ color:var(--ink-v2); }
+.v2 .lp-fx-card__value strong{ color:var(--accent); }
+
+/* antes/depois (jornada com e sem ecossistema) — o card tintado
+   que dava contraste virou "background:none" */
+.v2 .lp-journey-title{ color:var(--accent); }
+.v2 .lp-journey-chain li{ color:var(--ink-v2-soft); border-left-color:var(--rule); }
+.v2 .lp-journey-chain li::before{ color:var(--accent); }
+.v2 .lp-journey-final{ color:var(--ink-v2) !important; border-left-color:var(--accent) !important; }
+
+/* stack Expert/ASF — antes um card era escuro (texto claro) e o
+   outro branco; a v2 deixou os dois claros mas só recolori um */
+.v2 .lp-stack-tier__name{ color:var(--ink-v2); }
+.v2 .lp-stack-tier__role{ color:var(--accent); }
+.v2 .lp-stack-tier--expert .lp-stack-tier__role{ color:var(--accent-dim); }
+.v2 .lp-stack-tier__items,
+.v2 .lp-stack-tier--expert .lp-stack-tier__items{ color:var(--ink-v2-soft); }
+.v2 .lp-stack-tier--expert{ background:var(--ivory-dim); }
+
+/* prova social — card virou branco, "Rodrigo & Gabriel" continuou
+   branco (--cream) e sumiu */
+.v2 .lp-proof-card strong{ color:var(--ink-v2); }
+
+/* livro — o painel continua escuro de propósito (é o único bloco
+   de contraste forte da página), mas o título herdava a regra
+   genérica ".v2 h3{color:var(--ink-v2)}" (mais específica que a
+   regra original ".lp-book-offer__title{color:var(--cream)}") e
+   ficava escuro sobre escuro */
+.v2 .lp-book-offer__title{ color:var(--cream-v2); }
+
+/* hero da LP (vídeo/foto real de fundo, ainda escuro de propósito) —
+   mesmo problema do título do livro: a regra genérica ".v2 h1{color:
+   ink-v2}" é mais específica que a cor herdada de ".lp-hero-v2{color:
+   cream}" e apagava o H1 por cima do vídeo */
+.v2 .lp-hero-v2__title{ color:var(--cream-v2); }
+
+/* cotação AUD no header — mesmo problema do lp-fx-card: fundo escuro
+   que dava contraste ao azul virou --ivory */
+.v2 .fx-badge strong{ color:var(--ink-v2); }
+
+/* cards "o que você recebe" — texto claro órfão do card escuro */
+.v2 .lp-offer-card p{ color:var(--ink-v2-soft); }
+
+/* ficha técnica do livro e links "comprar só o livro" — ficam FORA do
+   painel escuro (.lp-book-offer__panel), direto na section achatada */
+.v2 .lp-book-meta{ color:var(--ink-v2-soft); }
+.v2 .lp-book-cta-label{ color:var(--accent); }
+.v2 .lp-book-link{ color:var(--ink-v2); border-color:var(--rule); background:transparent; }
+.v2 .lp-book-link:hover{ background:var(--ivory-dim); border-color:var(--ink-v2); }
+
+@media (max-width:900px){
+  .v2-authority-bar{ grid-template-columns:repeat(2,1fr); row-gap:32px; }
+  .v2-method{ grid-template-columns:repeat(2,1fr); row-gap:32px; }
+  .v2-audience{ grid-template-columns:1fr; gap:32px; }
+  .v2-bio{ grid-template-columns:1fr; gap:28px; }
+  .v2 .lp-broken-journey, .v2 .lp-pain-grid, .v2 .lp-offer-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:640px){
+  .v2 section{ padding-block:64px; }
+  .v2-authority-bar{ grid-template-columns:1fr; }
+  .v2-hero__media{ min-height:520px; }
+  .v2-method{ grid-template-columns:1fr; }
+  .v2-offer{ padding:32px 24px; }
+}

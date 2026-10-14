@@ -1,0 +1,136 @@
+// Lê assets/data/noticias.json (gerado automaticamente por
+// scripts/build-noticias.mjs, via GitHub Action) e monta os cards de notícia
+// e de vídeo. Sem chamada externa nenhuma no navegador — evita CORS e mantém
+// a página rápida. Usado tanto na página Notícias quanto na seção "Estamos
+// no YouTube" da home — qualquer elemento com [data-videos-grid] na página
+// recebe os vídeos (com [data-limit] opcional pra mostrar só os N primeiros).
+(function () {
+  // Resolve o caminho do JSON relativo ao PRÓPRIO SCRIPT (não à página que
+  // o carrega) — assim funciona igual em index.html (na raiz) e em
+  // new/index.html (uma pasta mais funda), sem precisar de duas versões
+  // do arquivo. document.currentScript só existe de forma confiável
+  // enquanto o script roda de forma síncrona (é o nosso caso aqui).
+  var scriptEl = document.currentScript;
+  var DATA_URL = scriptEl
+    ? new URL('../data/noticias.json', scriptEl.src).href
+    : 'assets/data/noticias.json'; // fallback (não deveria ser usado)
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function newsCard(item) {
+    const card = document.createElement('article');
+    card.className = 'news-card';
+    // Fontes em inglês: lang="en" deixa o navegador oferecer tradução, e o link
+    // abre a matéria traduzida pelo Google Tradutor (URL pública, sem chave nem
+    // serviço nosso, funciona igual em qualquer hospedagem).
+    const translated = 'https://translate.google.com/translate?sl=en&tl=pt&u=' + encodeURIComponent(item.link);
+    card.innerHTML = `
+      <span class="news-card__source">${item.source}</span>
+      <h3 class="news-card__title" lang="en"><a href="${item.link}" target="_blank" rel="noopener">${item.title}</a></h3>
+      <p class="news-card__desc" lang="en">${item.description}</p>
+      <span class="news-card__date">${formatDate(item.pubDate)}</span>
+      <a class="news-card__translate" href="${translated}" target="_blank" rel="noopener">Ler em português →</a>
+    `;
+    return card;
+  }
+
+  function videoCard(item) {
+    const card = document.createElement('article');
+    card.className = 'video-card';
+    card.innerHTML = `
+      <button class="video-card__thumb" type="button" aria-label="Assistir: ${item.title}">
+        <img src="${item.thumbnail}" alt="" loading="lazy">
+        <svg class="video-card__play" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="rgba(18,23,58,.75)"/><path d="M10 8.3l6 3.7-6 3.7z" fill="#fff"/></svg>
+      </button>
+      <h3 class="video-card__title">${item.title}</h3>
+      <span class="video-card__date">${formatDate(item.published)}</span>
+    `;
+    const btn = card.querySelector('.video-card__thumb');
+    btn.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${item.videoId}?autoplay=1`;
+      iframe.title = item.title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'video-card__iframe';
+      btn.replaceWith(iframe);
+    }, { once: true });
+    return card;
+  }
+
+  // Vídeos fixados manualmente direto no HTML (não vêm do noticias.json) —
+  // usado pra destacar vídeos específicos escolhidos à mão, ex: entrevistas.
+  // Precisa só de [data-video-id] (+ [data-video-title] opcional) no botão.
+  function wireStaticVideoCards() {
+    document.querySelectorAll('.video-card__thumb[data-video-id]').forEach((btn) => {
+      const videoId = btn.getAttribute('data-video-id');
+      const title = btn.getAttribute('data-video-title') || 'Vídeo';
+      btn.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        iframe.title = title;
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.className = 'video-card__iframe';
+        btn.replaceWith(iframe);
+      }, { once: true });
+    });
+  }
+
+  async function init() {
+    wireStaticVideoCards();
+
+    const newsGrid = document.getElementById('noticias-grid');
+    const videoGrids = document.querySelectorAll('[data-videos-grid]');
+    const updatedEl = document.getElementById('noticias-updated');
+
+    if (!newsGrid && !videoGrids.length) return; // página sem nenhum bloco de notícias/vídeo
+
+    try {
+      const res = await fetch(DATA_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      if (updatedEl && data.updated_at) {
+        updatedEl.textContent = `Atualizado em ${formatDate(data.updated_at)}`;
+      }
+
+      if (newsGrid) {
+        newsGrid.innerHTML = '';
+        if (data.news && data.news.length) {
+          data.news.forEach((item) => newsGrid.appendChild(newsCard(item)));
+        } else {
+          newsGrid.innerHTML = '<p class="noticias-empty">Nenhuma notícia relevante nas últimas atualizações, volte em breve.</p>';
+        }
+      }
+
+      videoGrids.forEach((grid) => {
+        const limit = parseInt(grid.getAttribute('data-limit'), 10);
+        const items = Number.isFinite(limit) ? (data.videos || []).slice(0, limit) : (data.videos || []);
+        grid.innerHTML = '';
+        if (items.length) {
+          items.forEach((item) => grid.appendChild(videoCard(item)));
+        } else {
+          grid.innerHTML = '<p class="noticias-empty noticias-empty--light">Nenhum vídeo encontrado no momento.</p>';
+        }
+      });
+    } catch (err) {
+      console.error('Falha ao carregar notícias:', err);
+      if (newsGrid) newsGrid.innerHTML = '<p class="noticias-empty">Não foi possível carregar as notícias agora. Tente novamente mais tarde.</p>';
+      videoGrids.forEach((grid) => {
+        grid.innerHTML = '<p class="noticias-empty noticias-empty--light">Não foi possível carregar os vídeos agora.</p>';
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

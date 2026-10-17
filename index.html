@@ -86,6 +86,22 @@
   ]
 }
 </script>
+<style>
+/* Destaque independente: Mentoria Lider de Travessias */
+.travessias-feature{background:#101f2d;color:#fff;padding:clamp(48px,7vw,92px) 0;position:relative;overflow:hidden}
+.travessias-feature:before{content:"";position:absolute;right:-110px;top:-170px;width:440px;height:440px;border:1px solid rgba(220,180,110,.25);border-radius:50%;pointer-events:none}
+.travessias-feature__inner{max-width:1120px;margin:auto;padding:0 24px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:clamp(28px,5vw,72px);align-items:center}
+.travessias-feature__eyebrow{font:700 12px/1.5 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#e6bf7c;margin:0 0 16px}
+.travessias-feature h2{font:700 clamp(32px,4vw,56px)/1.12 Inter,sans-serif;letter-spacing:-.04em;color:#fff;margin:0 0 22px}
+.travessias-feature__lead{font:400 clamp(16px,1.5vw,19px)/1.7 Inter,sans-serif;color:#dce3e8;margin:0 0 26px}
+.travessias-feature__cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 25px;background:#e6bf7c;color:#142233!important;font:700 14px/1.3 Inter,sans-serif;text-decoration:none;border-radius:4px;transition:filter .2s}
+.travessias-feature__cta:hover{filter:brightness(1.08)}
+.travessias-feature__side{padding:30px;border:1px solid rgba(230,191,124,.35);background:rgba(255,255,255,.045);border-radius:10px}
+.travessias-feature__side strong{display:block;color:#e6bf7c;font:700 13px/1.5 'Space Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-bottom:15px}
+.travessias-feature__side p{color:#fff;font:500 17px/1.6 Inter,sans-serif;margin:0 0 12px}
+.travessias-feature__side p:last-child{margin-bottom:0}
+@media(max-width:740px){.travessias-feature__inner{grid-template-columns:1fr}.travessias-feature__side{padding:23px}}
+</style>
 </head>
 <!-- v2 = direção editorial nova pedida pelo Marcelo em 2026-09-27 (doc
      "Documento para Website e LP"), rodando em paralelo ao site atual
@@ -177,6 +193,25 @@
         </a>
         <a href="marcelo-lusardo.html" class="link-inline link-inline--light">Conheça a história de Marcelo →</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= MENTORIA LIDER DE TRAVESSIAS ======================= -->
+<section class="travessias-feature" id="mentoria-lider-de-travessias" aria-labelledby="travessias-feature-title">
+  <div class="travessias-feature__inner">
+    <div>
+      <p class="travessias-feature__eyebrow">Método Líder de Travessias · Mentoria Online</p>
+      <h2 id="travessias-feature-title">Toda grande transformação começa com uma decisão.</h2>
+      <p class="travessias-feature__lead">Sua próxima travessia não precisa ser para outro país. Pode ser uma mudança de carreira, um novo negócio, um recomeço pessoal ou a construção de uma vida com mais propósito. Em quatro semanas, transforme reflexão em direção e direção em um plano estratégico para sua vida.</p>
+      <a class="travessias-feature__cta" href="https://liderdetravessias.com.br/mentoria-4-semanas/">CONHEÇA A MENTORIA →</a>
+    </div>
+    <div class="travessias-feature__side">
+      <strong>Sua travessia começa aqui</strong>
+      <p>01 · Identidade e propósito</p>
+      <p>02 · Diagnóstico do momento atual</p>
+      <p>03 · Visão de futuro e prioridades</p>
+      <p>04 · Mapa Estratégico da Travessia</p>
     </div>
   </div>
 </section>
@@ -758,7 +793,7 @@
 
     <nav class="footer-nav" aria-label="Redes sociais">
       <a href="https://www.youtube.com/@nsfa_br" target="_blank" rel="noopener">YouTube</a>
-      <a href="http://instagram.com/nsfa_br" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://instagram.com/nsfa_br" target="_blank" rel="noopener">Instagram</a>
       <a href="https://facebook.com/nsfabr" target="_blank" rel="noopener">Facebook</a>
       <a href="http://linkedin.com/company/nsfabr" target="_blank" rel="noopener">LinkedIn</a>
     </nav>

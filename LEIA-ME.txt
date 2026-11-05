@@ -1,2 +1,6 @@
-PRÉVIA DE TESTES, NÃO PUBLICADA.
-Copie index.html, mentorias/index.html e assets/site.css e assets/img/* para o repositório existente. Preserve mentoria-4-semanas/ e outros assets. Os mapas são ilustrações conceituais. A inscrição R$97 e programas avançados ainda não têm checkout validado. Nenhuma cobrança foi ativada. O logotipo SVG é proposta nova, não substitui logotipos oficiais sem aprovação. As fotos usadas nesta versão são imagens distintas do pacote existente; a pasta do Google Drive foi listada, mas não houve seleção visual nem incorporação de fotos do Drive nesta versão.
+VERSÃO V3 PARA REVISÃO, NÃO PUBLICADA.
+Este pacote contém a Home, o catálogo /mentorias/, logo vetorial e fotografias conceituais cinematográficas.
+As fotografias cinematográficas são recortes de artes geradas para o projeto, não fotografias reais do Drive. A pasta Drive foi listada, mas os arquivos originais ainda não foram baixados/selecionados.
+Não substitua a pasta mentoria-4-semanas/ existente. Não há checkout configurado para encontro R$97 ou programas avançados.
+Para testar: subir arquivos do ZIP ao repositório do GitHub Pages em uma branch de teste, preservando os demais arquivos e diretórios.
+O logo é proposta inédita, sujeita à aprovação.

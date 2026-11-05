@@ -1,6 +1,1 @@
-VERSÃO V3 PARA REVISÃO, NÃO PUBLICADA.
-Este pacote contém a Home, o catálogo /mentorias/, logo vetorial e fotografias conceituais cinematográficas.
-As fotografias cinematográficas são recortes de artes geradas para o projeto, não fotografias reais do Drive. A pasta Drive foi listada, mas os arquivos originais ainda não foram baixados/selecionados.
-Não substitua a pasta mentoria-4-semanas/ existente. Não há checkout configurado para encontro R$97 ou programas avançados.
-Para testar: subir arquivos do ZIP ao repositório do GitHub Pages em uma branch de teste, preservando os demais arquivos e diretórios.
-O logo é proposta inédita, sujeita à aprovação.
+VERSÃO V4 PARA TESTE. Não publicada. Substitua no repositório os arquivos index.html e assets/site.css, preserve a pasta assets/img da versão V3 e a página mentoria-4-semanas. A pasta mentorias também está incluída. Os dados do dashboard são FICTÍCIOS e não são conectados ao aplicativo. Missão, visão, valores e a nomenclatura das 12 dimensões são propostas para validação com o Manual Mestre. Imagens cinematográficas existentes foram preservadas com ajuste de enquadramento sem deformação. Nenhuma imagem do Drive foi editada nesta versão. Não alterar produção antes de revisar.

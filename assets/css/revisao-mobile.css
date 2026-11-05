@@ -1,0 +1,9 @@
+/* Revisão de margens e legibilidade mobile — fase 1 */
+@media(max-width:767px){
+  html,body{max-width:100%;overflow-x:clip}
+  .wrap,.lt-wrap{width:100%;max-width:100%;box-sizing:border-box;padding-left:22px!important;padding-right:22px!important}
+  h1,h2,h3,.hero-title,.lp-hero-v2__title{overflow-wrap:break-word;hyphens:auto}
+  img,video,iframe{max-width:100%}
+  .hero-actions,.mentoria-hero-actions{max-width:100%}
+  .hero-actions .btn,.mentoria-hero-actions .btn{max-width:100%;box-sizing:border-box;white-space:normal;text-align:center}
+}

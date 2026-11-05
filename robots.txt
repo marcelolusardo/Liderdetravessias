@@ -1,3 +1,2 @@
-# Indexacao liberada: o Google pode rastrear e indexar o site.
 User-agent: *
-Allow: /
+Disallow: /
